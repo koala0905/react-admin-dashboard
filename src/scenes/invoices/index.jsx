@@ -16,24 +16,27 @@ const Invoices = () => {
       cellClassName: "name-column--cell",
     },
     {
+      field: "email",
+      headerName: "Email",
+      headerAlign: "left",
+      align: "left",
+      flex: 1,
+    },
+    {
       field: "phone",
       headerName: "Phone Number",
       flex: 1,
     },
     {
-      field: "email",
-      headerName: "Email",
-      flex: 1,
-    },
-    {
       field: "cost",
+      type: "number",
       headerName: "Cost",
       flex: 1,
-      renderCell: (params) => (
+      renderCell: (params) => {
         <Typography color={colors.greenAccent[500]}>
           ${params.row.cost}
-        </Typography>
-      ),
+        </Typography>;
+      },
     },
     {
       field: "date",
@@ -44,7 +47,7 @@ const Invoices = () => {
 
   return (
     <Box m="20px">
-      <Header title="INVOICES" subtitle="List of Invoice Balances" />
+      <Header title="INVOICES" subtitle="List of Invoices" />
       <Box
         m="40px 0 0 0"
         height="75vh"

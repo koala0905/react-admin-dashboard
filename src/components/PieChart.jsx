@@ -1,11 +1,12 @@
+import { useTheme } from "@mui/material";
 import { ResponsivePie } from "@nivo/pie";
 import { tokens } from "../theme";
-import { useTheme } from "@mui/material";
 import { mockPieData as data } from "../data/mockData";
 
-const PieChart = () => {
+const Pie = ({ isDashboard = false }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
   return (
     <ResponsivePie
       data={data}
@@ -42,6 +43,7 @@ const PieChart = () => {
       padAngle={0.7}
       cornerRadius={3}
       activeOuterRadiusOffset={8}
+      borderWidth={1}
       borderColor={{
         from: "color",
         modifiers: [["darker", 0.2]],
@@ -51,8 +53,7 @@ const PieChart = () => {
       arcLinkLabelsThickness={2}
       arcLinkLabelsColor={{ from: "color" }}
       enableArcLabels={false}
-      arcLabelsRadiusOffset={0.4}
-      arcLabelsSkipAngle={7}
+      arcLabelsSkipAngle={10}
       arcLabelsTextColor={{
         from: "color",
         modifiers: [["darker", 2]],
@@ -75,6 +76,56 @@ const PieChart = () => {
           rotation: -45,
           lineWidth: 6,
           spacing: 10,
+        },
+      ]}
+      fill={[
+        {
+          match: {
+            id: "ruby",
+          },
+          id: "dots",
+        },
+        {
+          match: {
+            id: "c",
+          },
+          id: "dots",
+        },
+        {
+          match: {
+            id: "go",
+          },
+          id: "dots",
+        },
+        {
+          match: {
+            id: "python",
+          },
+          id: "dots",
+        },
+        {
+          match: {
+            id: "scala",
+          },
+          id: "lines",
+        },
+        {
+          match: {
+            id: "lisp",
+          },
+          id: "lines",
+        },
+        {
+          match: {
+            id: "elixir",
+          },
+          id: "lines",
+        },
+        {
+          match: {
+            id: "javascript",
+          },
+          id: "lines",
         },
       ]}
       legends={[
@@ -106,4 +157,4 @@ const PieChart = () => {
   );
 };
 
-export default PieChart;
+export default Pie;

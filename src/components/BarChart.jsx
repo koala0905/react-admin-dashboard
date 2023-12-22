@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useTheme } from "@mui/material";
 import { ResponsiveBar } from "@nivo/bar";
 import { tokens } from "../theme";
@@ -7,11 +8,12 @@ const BarChart = ({ isDashboard = false }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
+  const [barData, setBarData] = useState(data);
+
   return (
     <ResponsiveBar
       data={data}
       theme={{
-        // added
         axis: {
           domain: {
             line: {
@@ -66,9 +68,23 @@ const BarChart = ({ isDashboard = false }) => {
           spacing: 10,
         },
       ]}
+      fill={[
+        {
+          match: {
+            id: "fries",
+          },
+          id: "dots",
+        },
+        {
+          match: {
+            id: "sandwich",
+          },
+          id: "lines",
+        },
+      ]}
       borderColor={{
         from: "color",
-        modifiers: [["darker", "1.6"]],
+        modifiers: [["darker", 1.6]],
       }}
       axisTop={null}
       axisRight={null}
@@ -76,17 +92,19 @@ const BarChart = ({ isDashboard = false }) => {
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: isDashboard ? undefined : "country", // changed
+        legend: isDashboard ? undefined : "country",
         legendPosition: "middle",
         legendOffset: 32,
+        truncateTickAt: 0,
       }}
       axisLeft={{
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: isDashboard ? undefined : "food", // changed
+        legend: isDashboard ? undefined : "food",
         legendPosition: "middle",
         legendOffset: -40,
+        truncateTickAt: 0,
       }}
       enableLabel={false}
       labelSkipWidth={12}
@@ -120,9 +138,10 @@ const BarChart = ({ isDashboard = false }) => {
         },
       ]}
       role="application"
-      barAriaLabel={function (e) {
-        return e.id + ": " + e.formattedValue + " in country: " + e.indexValue;
-      }}
+      ariaLabel="Nivo bar chart demo"
+      barAriaLabel={(e) =>
+        e.id + ": " + e.formattedValue + " in country: " + e.indexValue
+      }
     />
   );
 };
